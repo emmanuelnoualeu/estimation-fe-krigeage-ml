@@ -1,0 +1,5 @@
+,R2,RMSE,MAE,Biais moyen,Pente de régression
+Krigeage ordinaire,0.78,2.787,2.201,-0.631,1.036
+Random Forest,0.935,1.511,1.208,-0.014,1.041
+XGBoost,0.926,1.619,1.293,-0.125,1.067
+Stacking RF+XGB,0.936,1.507,1.207,0.018,1.029
