@@ -9,7 +9,7 @@
 
 > - **Le problème :** le krigeage ordinaire lisse les teneurs d'un gisement de fer rubané (BIF). Il sous-estime le minerai riche et surestime le pauvre.
 > - **Les données :** 30 forages, ~3 630 m, ~2 700 échantillons analysés (Fe, SiO₂, Al₂O₃, P), gisement de BIF, Sud-Cameroun.
-> - **La méthode :** modèle géologique 3D, variographie par domaine, puis comparaison sur des forages tenus à l'écart : krigeage, Random Forest, XGBoost et stacking.
+> - **La méthode :** modèle géologique 3D, variographie par domaine, puis comparaison sur un jeu de test indépendant : krigeage, Random Forest, XGBoost et stacking.
 > - **Le résultat :** le R² passe de **0,606 à 0,825**, pour un inventaire de **102,1 Mt à 31,4 % Fe**, dont **58,2 Mt en Mesurée + Indiquée** (JORC 2012).
 
 ![Résultats du gisement réel](figures/00_resultats_memoire.png)
@@ -24,9 +24,13 @@ Dans un projet minier, l'estimation des teneurs fixe le tonnage au-dessus de la 
 
 | | Krigeage ordinaire | Random Forest | XGBoost | **Stacking RF + XGB** |
 |---|---|---|---|---|
-| R² (forages de test) | 0,606 | 0,631 | 0,731 | **0,825** |
-| RMSE (% Fe) | 5,81 | – | – | **3,54** |
-| MAE (% Fe) | – | – | – | **2,45** |
+| R² validation croisée (5 plis) | 0,606 | 0,711 | 0,769 | **0,848** |
+| R² jeu de test (20 %, 361 composites) | 0,606 | 0,631 | 0,731 | **0,825** |
+| RMSE (% Fe) | 5,34 | 5,14 | 4,39 | **3,54** |
+| MAE (% Fe) | 4,10 | 3,74 | 3,16 | **2,45** |
+| Pente estimé / observé | 0,57 | – | – | **0,83** |
+
+**[▶ Lire l'étude détaillée](https://emmanuelnoualeu.github.io/projets/gisement-fer/)** : contrôle qualité, valeurs aberrantes, compositage, variographie, krigeage, machine learning et classification, avec tous les tableaux du mémoire.
 
 | Domaine géologique (modèle 3D) | Volume |
 |---|---|
@@ -52,7 +56,7 @@ flowchart LR
     D --> E["Écrêtage P01-P99<br/>et compositage"]
     E --> F["Variographie<br/>par domaine"]
     F --> G["Estimation<br/>krigeage et ML"]
-    G --> H["Validation<br/>forages de test"]
+    G --> H["Validation<br/>jeu de test 20 %"]
     H --> I["Classification<br/>JORC 2012"]
 ```
 
@@ -65,7 +69,7 @@ flowchart LR
 | 5. Écrêtage et compositage | Teneurs aberrantes en Fe écrêtées entre les percentiles 1 et 99 ; régularisation à longueur fixe dans chaque domaine | **1 818 composites de 2 m** | Isatis.neo |
 | 6. Variographie | Variogrammes directionnels par domaine | Anisotropie NW-SE (~135°), pépite quasi nulle, portées de 150 à 300 m | Isatis.neo |
 | 7. Estimation | Krigeage ordinaire par domaine, puis Random Forest, XGBoost et stacking ; modèle de blocs | R² de 0,606 (krigeage) à 0,825 (stacking) | Isatis.neo, Python, Surpac |
-| 8. Validation | Validation croisée et test sur des forages tenus à l'écart | RMSE 3,54 % Fe, MAE 2,45 % Fe pour le stacking | Python, Excel, Power BI |
+| 8. Validation | Validation croisée à 5 plis et jeu de test indépendant de 20 % (361 composites, tirage stratifié par type de roche) | Stacking : RMSE 3,54 % Fe contre 5,34 pour le krigeage ; pente 0,83 contre 0,57 | Python, Excel, Power BI |
 | 9. Classification | Efficacité de krigeage, densité d'échantillonnage, confiance géologique ; courbe tonnage-teneur | 102,1 Mt à 31,4 % Fe, dont 58,2 Mt en Mesurée + Indiquée | Surpac, Excel |
 
 Détail de chaque étape et de ses paramètres : [docs/METHODOLOGIE.md](docs/METHODOLOGIE.md).
@@ -111,7 +115,7 @@ La silice porte l'essentiel de la prédiction. Le résultat est cohérent avec l
 ## Ce que j'en retiens
 
 - **Le Machine Learning ne remplace pas le krigeage, il le complète.** Le krigeage reste traçable, auditable et accepté pour la déclaration des ressources. Le ML affine localement la teneur et sert de contrôle indépendant.
-- **Un bon score dépend d'une validation honnête.** Tester sur des forages entiers, et non sur des échantillons tirés au hasard, est ce qui distingue un résultat publiable d'un résultat trompeur.
+- **Un bon score dépend d'une validation honnête.** Dans le mémoire, le jeu de test est tiré au hasard parmi les composites, si bien que deux composites voisins d'un même forage peuvent se retrouver de part et d'autre. Ce dépôt va plus loin : le code de démonstration tient à l'écart des forages entiers, ce qui donne une mesure plus prudente.
 - **Le gain du ML dépend de la chimie disponible.** Pour un modèle de blocs, SiO₂ doit d'abord être estimée en chaque bloc. Le gain mesuré sur échantillons est donc une borne haute.
 
 Limites du travail et pistes d'amélioration : voir [docs/METHODOLOGIE.md](docs/METHODOLOGIE.md#9-limites-et-suite).

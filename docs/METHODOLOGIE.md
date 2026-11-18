@@ -56,7 +56,7 @@ Le faciès oxydé, superficiel et peu volumineux, correspond à l'altération su
 
 ## 7. Validation
 
-- **Jeu de test :** 20 % des forages, tenus à l'écart en entier. Un découpage aléatoire par échantillon gonflerait le score, car les échantillons voisins d'un même trou sont fortement corrélés.
+- **Jeu de test :** dans le mémoire, 20 % des composites (361), tirage stratifié par type de roche, et validation croisée à 5 plis pour régler les hyperparamètres. Dans le code de démonstration, 20 % des forages sont tenus à l'écart en entier : c'est plus strict, car des échantillons voisins d'un même trou sont fortement corrélés et un découpage aléatoire peut gonfler le score.
 - **Métriques :** R², RMSE, MAE, biais moyen et pente de régression observé/estimé. Une pente de 1 signifie l'absence de biais conditionnel.
 - **Biais conditionnel :** teneur moyenne estimée dans chaque classe de teneur observée. C'est le diagnostic direct de l'effet de lissage.
 - **Importance des variables :** importance par permutation sur le jeu de test.
@@ -65,10 +65,10 @@ Le faciès oxydé, superficiel et peu volumineux, correspond à l'altération su
 
 | Méthode | R² |
 |---|---|
-| Krigeage ordinaire | 0,606 (Pearson 0,81 en validation croisée, pas de biais global) |
+| Krigeage ordinaire | 0,606 (RMSE 5,34 % Fe ; Pearson 0,81 en validation croisée, pas de biais global ; pente 0,57) |
 | Random Forest | 0,631 |
 | XGBoost | 0,731 |
-| Stacking RF + XGB | 0,825 (RMSE 3,54 % Fe, MAE 2,45 % Fe) |
+| Stacking RF + XGB | 0,825 (RMSE 3,54 % Fe, MAE 2,45 % Fe ; pente 0,83) |
 
 ## 8. Classification des ressources (JORC 2012)
 
