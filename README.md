@@ -40,6 +40,36 @@ Dans un projet minier, l'estimation des teneurs fixe le tonnage au-dessus de la 
 | Inférée | 43,9 Mt |
 | **Total** | **102,1 Mt à 31,4 % Fe** |
 
+## La chaîne de traitement des données (gisement réel)
+
+Avant la moindre estimation, la base de forage a été reconstruite, contrôlée et préparée. C'est cette étape qui rend les résultats défendables.
+
+```mermaid
+flowchart LR
+    A["Base de forage<br/>30 forages, ~3 630 m"] --> B["Contrôle qualité<br/>2 705 → 2 702 analyses"]
+    B --> C["Analyse exploratoire<br/>par domaine"]
+    C --> D["Modèle 3D<br/>3 domaines"]
+    D --> E["Écrêtage P01-P99<br/>et compositage"]
+    E --> F["Variographie<br/>par domaine"]
+    F --> G["Estimation<br/>krigeage et ML"]
+    G --> H["Validation<br/>forages de test"]
+    H --> I["Classification<br/>JORC 2012"]
+```
+
+| Étape | Ce qui a été fait | Résultat | Outils |
+|---|---|---|---|
+| 1. Base de forage | Assemblage des tables Collar, Survey, Geology et Assay | 30 forages, environ 3 630 m | Isatis.neo |
+| 2. Contrôle qualité | Cohérence des quatre tables et des intervalles d'échantillonnage | 2 705 analyses brutes ramenées à **2 702 analyses XRF exploitables** ; anomalies d'intervalles corrigées | Isatis.neo |
+| 3. Analyse exploratoire | Statistiques et histogrammes par domaine, relations entre Fe, SiO₂, Al₂O₃ et P | Relation inverse Fe-SiO₂ mise en évidence | Isatis.neo, Python |
+| 4. Modèle géologique 3D | Modélisation des contacts à partir des logs et des teneurs | 3 domaines : encaissant 45,6 Mm³, itabirite fraîche 6,94 Mm³, itabirite oxydée 0,81 Mm³ | Leapfrog Geo |
+| 5. Écrêtage et compositage | Teneurs aberrantes en Fe écrêtées entre les percentiles 1 et 99 ; régularisation à longueur fixe dans chaque domaine | **1 818 composites de 2 m** | Isatis.neo |
+| 6. Variographie | Variogrammes directionnels par domaine | Anisotropie NW-SE (~135°), pépite quasi nulle, portées de 150 à 300 m | Isatis.neo |
+| 7. Estimation | Krigeage ordinaire par domaine, puis Random Forest, XGBoost et stacking ; modèle de blocs | R² de 0,606 (krigeage) à 0,825 (stacking) | Isatis.neo, Python, Surpac |
+| 8. Validation | Validation croisée et test sur des forages tenus à l'écart | RMSE 3,54 % Fe, MAE 2,45 % Fe pour le stacking | Python, Excel, Power BI |
+| 9. Classification | Efficacité de krigeage, densité d'échantillonnage, confiance géologique ; courbe tonnage-teneur | 102,1 Mt à 31,4 % Fe, dont 58,2 Mt en Mesurée + Indiquée | Surpac, Excel |
+
+Détail de chaque étape et de ses paramètres : [docs/METHODOLOGIE.md](docs/METHODOLOGIE.md).
+
 ---
 
 ## La démarche en 6 étapes

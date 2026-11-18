@@ -10,7 +10,7 @@ Ce document décrit chaque étape de l'étude, les choix techniques et leurs jus
 |---|---|---|
 | Forages | 30 | 30 |
 | Métrage | ~3 630 m | ~3 680 m |
-| Échantillons analysés | ~2 700 | ~2 725 |
+| Échantillons analysés | 2 702 analyses XRF validées (2 705 brutes) | ~2 725 |
 | Variables | Fe, SiO₂, Al₂O₃, P (analyses ALS) | Fe, SiO₂, Al₂O₃, P |
 | Domaines | encaissant, itabirite fraîche, itabirite oxydée | idem |
 
@@ -18,7 +18,7 @@ Tables manipulées : collars (têtes de forage), surveys (déviations), assays (
 
 ## 2. Contrôle qualité (QA/QC)
 
-Le QA/QC porte sur les analyses de laboratoire et sur la récupération des carottes (COR). Une faible récupération dans les zones altérées biaise les teneurs, parce que la fraction perdue n'est pas aléatoire. Un intervalle mal récupéré doit être signalé avant toute estimation.
+Le QA/QC a porté sur les quatre tables de la base (Collar, Survey, Geology, Assay) : les 2 705 analyses brutes ont été ramenées à 2 702 analyses exploitables, et les anomalies d'intervalles (chevauchements, lacunes) ont été corrigées. Il porte aussi sur la récupération des carottes (COR). Une faible récupération dans les zones altérées biaise les teneurs, parce que la fraction perdue n'est pas aléatoire. Un intervalle mal récupéré doit être signalé avant toute estimation.
 
 ## 3. Modèle géologique 3D
 
@@ -34,8 +34,8 @@ Le faciès oxydé, superficiel et peu volumineux, correspond à l'altération su
 
 ## 4. Compositage et valeurs extrêmes
 
-- **Compositage :** longueur fixe (2 m dans le code), sans franchir une limite de domaine. On obtient un support homogène, condition nécessaire pour la variographie.
-- **Top-cut :** écrêtage au quantile 99,5 % (code). Dans le mémoire, l'écrêtage global n'a pas complètement résorbé les extrêmes du phosphore. La recommandation est de l'appliquer **par domaine**.
+- **Compositage :** longueur fixe de 2 m, sans franchir une limite de domaine ; sur le gisement réel, 1 818 composites. On obtient un support homogène, condition nécessaire pour la variographie.
+- **Écrêtage :** sur le gisement réel, teneurs aberrantes en Fe écrêtées entre les percentiles 1 et 99 (P01-P99) ; dans le code, quantile 99,5 %. Dans le mémoire, l'écrêtage global n'a pas complètement résorbé les extrêmes du phosphore. La recommandation est de l'appliquer **par domaine**.
 
 ## 5. Variographie
 
