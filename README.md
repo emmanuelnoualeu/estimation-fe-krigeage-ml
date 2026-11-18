@@ -134,7 +134,7 @@ J'aide les **sociétés d'exploration, les bureaux d'études et les chercheurs e
 
 *Pour une déclaration publique de ressources (JORC, NI 43-101), je prépare les données, les modèles et la documentation technique ; la signature reste celle de votre Personne Compétente ou Personne Qualifiée.*
 
-**Me contacter :** [LinkedIn](https://www.linkedin.com/in/emmanuel-noualeu-b78bba24b/) · [Upwork](https://www.upwork.com/freelancers/~0146b1a5dfeefdd395) · [emmanuelnoualeu@gmail.com](mailto:emmanuelnoualeu@gmail.com)
+**Me contacter :** [Portfolio](https://emmanuelnoualeu.github.io) · [LinkedIn](https://www.linkedin.com/in/emmanuel-noualeu-b78bba24b/) · [Upwork](https://www.upwork.com/freelancers/~0146b1a5dfeefdd395) · [emmanuelnoualeu@gmail.com](mailto:emmanuelnoualeu@gmail.com)
 
 Décrivez-moi votre jeu de données en trois lignes : nombre de forages, substance, ce que vous cherchez à décider. Je vous réponds sous 48 h avec une proposition de démarche.
 
