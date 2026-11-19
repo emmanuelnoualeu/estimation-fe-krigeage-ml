@@ -1,5 +1,14 @@
 # Estimer un gisement de fer à partir de 30 forages : krigeage et Machine Learning
 
+> **English summary**
+>
+> - **Problem:** ordinary kriging smooths grades in a banded iron formation (BIF) deposit. It underestimates rich ore and overestimates poor ore.
+> - **Data:** 30 drill holes, ~3,630 m, ~2,700 assayed samples, BIF deposit, southern Cameroon.
+> - **Method:** 3D geological model, variography by domain, then comparison on an independent test set: ordinary kriging, Random Forest, XGBoost and stacking.
+> - **Result:** R² rises from **0.606 to 0.825**, for an inventory of **102.1 Mt at 31.4% Fe**, including **58.2 Mt Measured + Indicated** (JORC 2012).
+>
+> *The detailed write-up below is in French. Code, figures and results are language-independent.*
+
 [![pipeline](https://github.com/emmanuelnoualeu/estimation-fe-krigeage-ml/actions/workflows/pipeline.yml/badge.svg)](https://github.com/emmanuelnoualeu/estimation-fe-krigeage-ml/actions/workflows/pipeline.yml)
 ![Python](https://img.shields.io/badge/Python-3.11-1f4e79)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-RF%20%7C%20Stacking-c55a11)
